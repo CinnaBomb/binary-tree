@@ -46,27 +46,39 @@ class BinaryTree
 
 			end
 			node_placed = false
+			#reset parent_node to top!!!
 			parent_node = @top_node
 		end
 	end
 
 	def breadth_first_search(value)
-		#trav = []
 		q = []
 		current_node = @top_node
-		#trav.push(current_node.value)
 		while !current_node.nil?
-			#puts current_node.value
 			return current_node if current_node.value == value
 			q.push current_node.left_child if !current_node.left_child.nil?
 			q.push current_node.right_child if !current_node.right_child.nil?
 			current_node = q.shift
-			#trav.push(current_node.value)
 		end
-
 	end
 
 	def depth_first_search(value)
+		s = []
+		s.push(@top_node)
+		while !s.empty?
+			current_node = s.pop
+			while !current_node.left_child.nil?
+				current_node = current_node.left_child
+				s.push(current_node)
+				return current_node if current_node.value == value
+			end
+			unless current_node.right_child.nil?
+				current_node = current_node.right_child
+				#return current_node if current_node.value == value
+			end
+
+		end
+		
 
 	end
 
@@ -80,6 +92,7 @@ array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 
 b = BinaryTree.new
 b.build_tree(array)
-#b.to_s
-puts b.breadth_first_search(6345).value
-puts b.breadth_first_search(6345).left_child.value
+#puts b.breadth_first_search(7).left_child.value
+#puts b.breadth_first_search(7).right_child.value
+#puts b.breadth_first_search(6345).value
+#puts b.breadth_first_search(6345).left_child.value

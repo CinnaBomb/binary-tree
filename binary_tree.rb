@@ -62,37 +62,40 @@ class BinaryTree
 		end
 	end
 
+	#INORDER
 	def depth_first_search(value)
 		s = []
-		s.push(@top_node)
-		while !s.empty?
-			current_node = s.pop
-			while !current_node.left_child.nil?
-				current_node = current_node.left_child
+		current_node = @top_node
+		while !s.empty? || !current_node.nil?
+			if !current_node.nil?
 				s.push(current_node)
+				current_node = current_node.left_child
+			else
+				current_node = s.pop
 				return current_node if current_node.value == value
-			end
-			unless current_node.right_child.nil?
 				current_node = current_node.right_child
-				#return current_node if current_node.value == value
 			end
-
 		end
-		
-
 	end
 
-	def dfs_rec(value)
-
+	#INORDER
+	def dfs_rec(value, current_node = @top_node)
+		return if current_node.nil?
+		dfs_rec(value, current_node.left_child)
+		#puts current_node.value
+		return current_node if current_node.value == value
+		dfs_rec(value, current_node.right_child)
 	end
 
 end
 
-array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
+# array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 
-b = BinaryTree.new
-b.build_tree(array)
-#puts b.breadth_first_search(7).left_child.value
-#puts b.breadth_first_search(7).right_child.value
-#puts b.breadth_first_search(6345).value
-#puts b.breadth_first_search(6345).left_child.value
+# b = BinaryTree.new
+# b.build_tree(array)
+# puts b.breadth_first_search(7).left_child.value
+# puts b.breadth_first_search(7).right_child.value
+# puts b.breadth_first_search(6345).value
+# puts b.breadth_first_search(6345).left_child.value
+# b.depth_first_search(2)
+# b.dfs_rec(2)
